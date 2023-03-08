@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Read (One)</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+<body>
+    <h1 class="text-center">User {{user.id}}</h1>
+    <div class="container-md bg-dark text-warning p-3">
+        <p>Full Name: <span class="text-light">{{user.first_name}} {{user.last_name}}</span></p>
+        <p>Email: <span class="text-light">{{user.email}}</span></p>
+        <p>Created On: <span class="text-light">{{user.created_at}}</span></p>
+        <p>Last Updated On: <span class="text-light">{{user.updated_at}}</span></p>
+        <div class="d-flex justify-content-between">
+            <div class="d-flex">
+                <form action="/users/{{user.id}}/edit">
+                    <button>Edit</button>
+                </form>
+                <form action="/users/{{user.id}}/delete">
+                    <button>Delete</button>
+                </form>
+            </div>
+            <a href="{{ url_for('display_all')}}">Return to Home</a>
+        </div>
+    </div>
+</body>
+</html>

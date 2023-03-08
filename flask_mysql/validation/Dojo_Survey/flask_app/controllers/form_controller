@@ -1,0 +1,20 @@
+from flask_app import app
+from flask import Flask, render_template, request, redirect, session
+from models.form_model import Form
+
+
+@app.route('/')
+def dojo_survey_form():
+    return render_template("index.html")
+
+@app.route('/process', methods=['POST'])
+def dojo_survey_validate():
+    if not Form.validate_form(request.form):
+        return redirect('/')
+    Form.save(request.form)
+    return redirect('/result')
+
+@app.route('/result')
+def dojo_survey_results():
+    form_results = Form.get_last_form(1)
+    return render_template("results.html", form=form_results)

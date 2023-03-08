@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://fonts.cdnfonts.com/css/luminari" rel="stylesheet">
+    <style>
+        .body {
+            color: rgb(68, 74, 109);
+            background-color: rgb(233, 232, 172);
+            font-family: 'Luminari', sans-serif;
+            background-image: url(../static/images/parchment_bg.png);
+            background-size: 100%;
+            background-repeat: repeat-y;
+        }
+
+        .navbar-custom {
+            color: white;
+            background-color: black;
+        }
+
+        .blue-text {
+            color: rgb(0, 0, 56);
+        }
+    </style>
+</head>
+
+
+
+
+<body class="body">
+    <nav class="navbar navbar-custom w-100 ps-5 pe-5">
+        <div class="container w-75">
+            <span class="navbar-brand mb-0 h1">SPELLBOOK CREATOR</span>
+            <a href="/" class="nav-link">
+                HOME
+            </a>
+            <a href="/library" class="nav-link active">
+                LIBRARY
+            </a>
+            <div class="btn-group">
+                <div class="nav-link dropdown-toggle" id="dropdownMenuButton-nav" data-bs-toggle="dropdown">
+                    SPELLBOOKS
+                </div>
+                <ul class="dropdown-menu navbar-custom">
+                    {% for spellbook in spellbooks %}
+                    <a href="/spellbook/{{spellbook.id}}" class="dropdown-item navbar-custom">{{spellbook.name}}</a>
+                    {% endfor %}
+                </ul>
+            </div>
+            <a href="/directory" class="nav-link">
+                SPELLS
+            </a>
+            <a href="/logout" class="text-danger nav-link">LOGOUT</a>
+
+        </div>
+    </nav>
+    <div class="container">
+        <div class="d-flex align-items-center justify-content-between">
+            <h1 class="mt-4 pe-3">SPELL COMPENDIUM</h1>
+
+
+        </div>
+        <div class="d-flex justify-content-between">
+            <div>
+                <a href="#jump_cantrips">Cantrips</a>
+                <a href="#jump_1">First Level</a>
+                <a href="#jump_2">Second Level</a>
+                <a href="#jump_3">Third Level</a>
+                <a href="#jump_4">Fourth Level</a>
+                <br>
+                <a href="#jump_5">Fifth Level</a>
+                <a href="#jump_6">Sixth Level</a>
+                <a href="#jump_7">Seventh Level</a>
+                <a href="#jump_8">Eighth Level</a>
+                <a href="#jump_9">Ninth Level</a>
+            </div>
+            <div class="d-flex align-items-end">
+                <div class="dropdown">
+                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton-school"
+                        data-bs-toggle="dropdown">Filter by School:</button>
+                    <ul class="dropdown-menu">
+                        <li onclick="schoolFilter('abjuration')" class="dropdown-item">Abjuration</li>
+                        <li onclick="schoolFilter('conjuration')" class="dropdown-item">Conjuration</li>
+                        <li onclick="schoolFilter('divination')" class="dropdown-item">Divination</li>
+                        <li onclick="schoolFilter('enchantment')" class="dropdown-item">Enchantment</li>
+                        <li onclick="schoolFilter('evocation')" class="dropdown-item">Evocation</li>
+                        <li onclick="schoolFilter('illusion')" class="dropdown-item">Illusion</li>
+                        <li onclick="schoolFilter('necromancy')" class="dropdown-item">Necromancy</li>
+                        <li onclick="schoolFilter('transmutation')" class="dropdown-item">Transmutation</li>
+                    </ul>
+                </div>
+                    <select name="spellbook_id" class="form-select" onchange="choose_spellbook(this.value)">
+                        <option>Select a Spellbook to add a Spell!</option>
+                        {% for spellbook in spellbooks %}
+                        <option value="{{spellbook.id}}">{{spellbook.name}}</option>
+                        {% endfor %}
+                    </select>
+            </div>
+        </div>
+        {% with messages = get_flashed_messages(category_filter=['spellbook']) %}
+            {% if messages %}
+            <div class="card mb-3 mt-4 text-danger bg-dark border-danger">
+                <div class="card-body">
+                    {% for message in messages %}
+                    <p class="card-text">{{message}}</p>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            {% endwith %}
+        <hr>
+        <h3><a id="jump_cantrips"></a>Cantrips</h3>
+        <div class="table-responsive">
+            <table class="table table-hover accordion border-bottom-0">
+                <thead>
+                    <tr>
+                        <th>Spell Name</th>
+                        <th>Casting Time</th>
+                        <th>School</th>
+                        <th>Range</th>
+                        <th>Duration</th>
+                        <th>Classes</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="cantrips">
+
+                </tbody>
+            </table>
+        </div>
+
+        <h3><a id="jump_1"></a>First Level Spells</h3>
+        <div class="table-responsive">
+            <table class="table table-hover accordion border-bottom-0">
+                <thead>
+                    <tr>
+                        <th>Spell Name</th>
+                        <th>Casting Time</th>
+                        <th>School</th>
+                        <th>Range</th>
+                        <th>Duration</th>
+                        <th>Classes</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="level_ones">
+
+                </tbody>
+            </table>
+        </div>
+
+        <h3><a id="jump_2"></a>Second Level Spells</h3>
+        <div class="table-responsive">
+            <table class="table table-hover accordion border-bottom-0">
+                <thead>
+                    <tr>
+                        <th>Spell Name</th>
+                        <th>Casting Time</th>
+                        <th>School</th>
+                        <th>Range</th>
+                        <th>Duration</th>
+                        <th>Classes</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="level_twos">
+
+                </tbody>
+            </table>
+        </div>
+
+        <h3><a id="jump_3"></a>Third Level Spells</h3>
+        <div class="table-responsive">
+            <table class="table table-hover accordion border-bottom-0">
+                <thead>
+                    <tr>
+                        <th>Spell Name</th>
+                        <th>Casting Time</th>
+                        <th>School</th>
+                        <th>Range</th>
+                        <th>Duration</th>
+                        <th>Classes</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="level_threes">
+
+                </tbody>
+            </table>
+        </div>
+
+        <h3><a id="jump_4"></a>Fourth Level Spells</h3>
+        <div class="table-responsive">
+            <table class="table table-hover accordion border-bottom-0">
+                <thead>
+                    <tr>
+                        <th>Spell Name</th>
+                        <th>Casting Time</th>
+                        <th>School</th>
+                        <th>Range</th>
+                        <th>Duration</th>
+                        <th>Classes</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="level_fours">
+
+                </tbody>
+            </table>
+        </div>
+
+        <h3><a id="jump_5"></a>Fifth Level Spells</h3>
+        <div class="table-responsive">
+            <table class="table table-hover accordion border-bottom-0">
+                <thead>
+                    <tr>
+                        <th>Spell Name</th>
+                        <th>Casting Time</th>
+                        <th>School</th>
+                        <th>Range</th>
+                        <th>Duration</th>
+                        <th>Classes</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="level_fives">
+
+                </tbody>
+            </table>
+        </div>
+
+        <h3><a id="jump_6"></a>Sixth Level Spells</h3>
+        <div class="table-responsive">
+            <table class="table table-hover accordion border-bottom-0">
+                <thead>
+                    <tr>
+                        <th>Spell Name</th>
+                        <th>Casting Time</th>
+                        <th>School</th>
+                        <th>Range</th>
+                        <th>Duration</th>
+                        <th>Classes</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="level_sixs">
+
+                </tbody>
+            </table>
+        </div>
+
+        <h3><a id="jump_7"></a>Seventh Level Spells</h3>
+        <div class="table-responsive">
+            <table class="table table-hover accordion border-bottom-0">
+                <thead>
+                    <tr>
+                        <th>Spell Name</th>
+                        <th>Casting Time</th>
+                        <th>School</th>
+                        <th>Range</th>
+                        <th>Duration</th>
+                        <th>Classes</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="level_sevens">
+
+                </tbody>
+            </table>
+        </div>
+
+        <h3><a id="jump_8"></a>Eighth Level Spells</h3>
+        <div class="table-responsive">
+            <table class="table table-hover accordion border-bottom-0">
+                <thead>
+                    <tr>
+                        <th>Spell Name</th>
+                        <th>Casting Time</th>
+                        <th>School</th>
+                        <th>Range</th>
+                        <th>Duration</th>
+                        <th>Classes</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="level_eights">
+
+                </tbody>
+            </table>
+        </div>
+
+        <h3><a id="jump_9"></a>Ninth Level Spells</h3>
+        <div class="table-responsive">
+            <table class="table table-hover accordion border-bottom-0">
+                <thead>
+                    <tr>
+                        <th>Spell Name</th>
+                        <th>Casting Time</th>
+                        <th>School</th>
+                        <th>Range</th>
+                        <th>Duration</th>
+                        <th>Classes</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="level_nines">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <footer class="text-center mt-3">Powered by <a href="https://open5e.com/">Open5E API</a></footer>
+
+    <script src="../static/js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

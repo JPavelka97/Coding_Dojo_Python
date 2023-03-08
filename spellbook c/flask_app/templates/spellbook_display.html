@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://fonts.cdnfonts.com/css/luminari" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <style>
+
+    </style>
+</head>
+
+<body class="body">
+
+    <nav class="navbar navbar-custom w-100 ps-5 pe-5">
+        <div class="container w-75">
+            <span class="navbar-brand mb-0 h1">SPELLBOOK CREATOR</span>
+            <a href="/" class="nav-link">
+                HOME
+            </a>
+            <a href="/library" class="nav-link active">
+                LIBRARY
+            </a>
+            <div class="btn-group">
+                <div class="nav-link dropdown-toggle" id="dropdownMenuButton-nav" data-bs-toggle="dropdown">
+                    SPELLBOOKS
+                </div>
+                <ul class="dropdown-menu navbar-custom">
+                    {% for spellbook in spellbooks %}
+                    <a href="/spellbook/{{spellbook.id}}" class="dropdown-item navbar-custom">{{spellbook.name}}</a>
+                    {% endfor %}
+                </ul>
+            </div>
+            <a href="/directory" class="nav-link">
+                SPELLS
+            </a>
+            <a href="/logout" class="text-danger nav-link">LOGOUT</a>
+
+        </div>
+    </nav>
+
+    <div class="container w-75">
+        <h1 class="text-center mt-4 pe-3">BELGAR'S SPELLBOOK</h1>
+        <h5 class="text-center">Authored by: {{spellbook.first_name}} {{spellbook.last_name}}</h5>
+        <hr>
+        <div class="d-flex justify-content-between">
+            <h3>Wielder: {{spellbook.wielder_name}}
+            <h3>Class: {{spellbook.wielder_class}}, Level {{spellbook.wielder_level}}</h3>
+        </div>
+        {% if not spells0, spells1, spells2, spells3, spells4, spells5, spells6, spells7, spells8, spells9 %}
+        <h5>Head over to the <a href="/directory">directory</a> to add some spells!</h5>
+        {% endif %}
+        <div>
+            <div>
+                <div>
+                    {% if spells0 %}
+                    <h3 class="ms-3 mt-4 text-center">Cantrips</h3>
+                    <div class="accordion" id="cantrips">
+                        {% for spell in spells0 %}
+                        <div class="accordion-item">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapse{{spell.id}}">
+                                {{spell.name}}
+                            </button>
+                            <div id="collapse{{spell.id}}" class="accordion-collapse collapse" data-bs-parent="#cantrips">
+                                <div class="accordion-body">
+                                    <div>
+                                        <div class="d-flex justify-content-between">
+                                            <p><strong>{{spell.school}} Cantrip</strong></p>
+                                            <div>
+                                                <a href="/spellbook/{{spellbook.id}}/delete/{{spell.id}}" class="btn btn-dark">Remove from Spellbook</a>
+                                            </div>
+                                        </div>
+                                        <p>
+                                            Casting Time: {{spell.casting_time}} | Range: {{spell.range}} |
+                                            Duration: {{spell.duration}}<br>
+                                            Concentration: {{spell.concentration}} | Ritual: {{spell.ritual}} | Components: {{spell.components}}<br>
+                                            Material: {{spell.material}}
+                                        </p>
+
+                                        <hr>
+                                        <p>{{spell.desc}}</p>
+                                        <p>{{spell.higher_level}}</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    {% if spells1 %}
+                    <h3 class="ms-3 mt-4 text-center">First Level Spells</h3>
+                    <div class="accordion" id="first_level">
+                        {% for spell in spells1 %}
+                        <div class="accordion-item">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapse{{spell.id}}">
+                                {{spell.name}}
+                            </button>
+                            <div id="collapse{{spell.id}}" class="accordion-collapse collapse" data-bs-parent="#first_level">
+                                <div class="accordion-body">
+                                    <div>
+                                        <div class="d-flex justify-content-between">
+                                            <p><strong>{{spell.school}} - First Level</strong></p>
+                                            <div>
+                                                <a href="/spellbook/{{spellbook.id}}/delete/{{spell.id}}" class="btn btn-dark">Remove from Spellbook</a>
+                                            </div>
+                                        </div>
+                                        <p>
+                                            Casting Time: {{spell.casting_time}} | Range: {{spell.range}} |
+                                            Duration: {{spell.duration}}<br>
+                                            Concentration: {{spell.concentration}} | Ritual: {{spell.ritual}} | Components: {{spell.components}}<br>
+                                            Material: {{spell.material}}
+                                        </p>
+
+                                        <hr>
+                                        <p>{{spell.desc}}</p>
+                                        <p>{{spell.higher_level}}</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    {% if spells2 %}
+                    <h3 class="ms-3 mt-4 text-center">Second Level Spells</h3>
+                    <div class="accordion" id="second_level">
+                        {% for spell in spells2 %}
+                        <div class="accordion-item">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapse{{spell.id}}">
+                                {{spell.name}}
+                            </button>
+                            <div id="collapse{{spell.id}}" class="accordion-collapse collapse" data-bs-parent="#second-level">
+                                <div class="accordion-body">
+                                    <div>
+                                        <div class="d-flex justify-content-between">
+                                            <p><strong>{{spell.school}} - Second Level</strong></p>
+                                            <div>
+                                                <a href="/spellbook/{{spellbook.id}}/delete/{{spell.id}}" class="btn btn-dark">Remove from Spellbook</a>
+                                            </div>
+                                        </div>
+                                        <p>
+                                            Casting Time: {{spell.casting_time}} | Range: {{spell.range}} |
+                                            Duration: {{spell.duration}}<br>
+                                            Concentration: {{spell.concentration}} | Ritual: {{spell.ritual}} | Components: {{spell.components}}<br>
+                                            Material: {{spell.material}}
+                                        </p>
+
+                                        <hr>
+                                        <p>{{spell.desc}}</p>
+                                        <p>{{spell.higher_level}}</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    {% if spells3 %}
+                    <h3 class="ms-3 mt-4 text-center">Third Level Spells</h3>
+                    <div class="accordion" id="third_level">
+                        {% for spell in spells3 %}
+                        <div class="accordion-item">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapse{{spell.id}}">
+                                {{spell.name}}
+                            </button>
+                            <div id="collapse{{spell.id}}" class="accordion-collapse collapse" data-bs-parent="#third_level">
+                                <div class="accordion-body">
+                                    <div>
+                                        <div class="d-flex justify-content-between">
+                                            <p><strong>{{spell.school}} - Third Level</strong></p>
+                                            <div>
+                                                <a href="/spellbook/{{spellbook.id}}/delete/{{spell.id}}" class="btn btn-dark">Remove from Spellbook</a>
+                                            </div>
+                                        </div>
+                                        <p>
+                                            Casting Time: {{spell.casting_time}} | Range: {{spell.range}} |
+                                            Duration: {{spell.duration}}<br>
+                                            Concentration: {{spell.concentration}} | Ritual: {{spell.ritual}} | Components: {{spell.components}}<br>
+                                            Material: {{spell.material}}
+                                        </p>
+
+                                        <hr>
+                                        <p>{{spell.desc}}</p>
+                                        <p>{{spell.higher_level}}</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    {% if spells4 %}
+                    <h3 class="ms-3 mt-4 text-center">Fourth Level Spells</h3>
+                    <div class="accordion" id="fourth_level">
+                        {% for spell in spells4 %}
+                        <div class="accordion-item">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapse{{spell.id}}">
+                                {{spell.name}}
+                            </button>
+                            <div id="collapse{{spell.id}}" class="accordion-collapse collapse" data-bs-parent="#fourth_level">
+                                <div class="accordion-body">
+                                    <div>
+                                        <div class="d-flex justify-content-between">
+                                            <p><strong>{{spell.school}} - Fourth Level</strong></p>
+                                            <div>
+                                                <a href="/spellbook/{{spellbook.id}}/delete/{{spell.id}}" class="btn btn-dark">Remove from Spellbook</a>
+                                            </div>
+                                        </div>
+                                        <p>
+                                            Casting Time: {{spell.casting_time}} | Range: {{spell.range}} |
+                                            Duration: {{spell.duration}}<br>
+                                            Concentration: {{spell.concentration}} | Ritual: {{spell.ritual}} | Components: {{spell.components}}<br>
+                                            Material: {{spell.material}}
+                                        </p>
+
+                                        <hr>
+                                        <p>{{spell.desc}}</p>
+                                        <p>{{spell.higher_level}}</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    {% if spells5 %}
+                    <h3 class="ms-3 mt-4 text-center">Fifth Level Spells</h3>
+                    <div class="accordion" id="fifth_level">
+                        {% for spell in spells5 %}
+                        <div class="accordion-item">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapse{{spell.id}}">
+                                {{spell.name}}
+                            </button>
+                            <div id="collapse{{spell.id}}" class="accordion-collapse collapse" data-bs-parent="#fifth_level">
+                                <div class="accordion-body">
+                                    <div>
+                                        <div class="d-flex justify-content-between">
+                                            <p><strong>{{spell.school}} - Fifth Level</strong></p>
+                                            <div>
+                                                <a href="/spellbook/{{spellbook.id}}/delete/{{spell.id}}" class="btn btn-dark">Remove from Spellbook</a>
+                                            </div>
+                                        </div>
+                                        <p>
+                                            Casting Time: {{spell.casting_time}} | Range: {{spell.range}} |
+                                            Duration: {{spell.duration}}<br>
+                                            Concentration: {{spell.concentration}} | Ritual: {{spell.ritual}} | Components: {{spell.components}}<br>
+                                            Material: {{spell.material}}
+                                        </p>
+
+                                        <hr>
+                                        <p>{{spell.desc}}</p>
+                                        <p>{{spell.higher_level}}</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    {% if spells6 %}
+                    <h3 class="ms-3 mt-4 text-center">Sixth Level Spells</h3>
+                    <div class="accordion" id="sixth_level">
+                        {% for spell in spells6 %}
+                        <div class="accordion-item">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapse{{spell.id}}">
+                                {{spell.name}}
+                            </button>
+                            <div id="collapse{{spell.id}}" class="accordion-collapse collapse" data-bs-parent="#sixth_level">
+                                <div class="accordion-body">
+                                    <div>
+                                        <div class="d-flex justify-content-between">
+                                            <p><strong>{{spell.school}} - Sixth Level</strong></p>
+                                            <div>
+                                                <a href="/spellbook/{{spellbook.id}}/delete/{{spell.id}}" class="btn btn-dark">Remove from Spellbook</a>
+                                            </div>
+                                        </div>
+                                        <p>
+                                            Casting Time: {{spell.casting_time}} | Range: {{spell.range}} |
+                                            Duration: {{spell.duration}}<br>
+                                            Concentration: {{spell.concentration}} | Ritual: {{spell.ritual}} | Components: {{spell.components}}<br>
+                                            Material: {{spell.material}}
+                                        </p>
+
+                                        <hr>
+                                        <p>{{spell.desc}}</p>
+                                        <p>{{spell.higher_level}}</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    {% if spells7 %}
+                    <h3 class="ms-3 mt-4 text-center">Seventh Level Spells</h3>
+                    <div class="accordion" id="seventh_level">
+                        {% for spell in spells7 %}
+                        <div class="accordion-item">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapse{{spell.id}}">
+                                {{spell.name}}
+                            </button>
+                            <div id="collapse{{spell.id}}" class="accordion-collapse collapse" data-bs-parent="#seventh_level">
+                                <div class="accordion-body">
+                                    <div>
+                                        <div class="d-flex justify-content-between">
+                                            <p><strong>{{spell.school}} - Seventh Level</strong></p>
+                                            <div>
+                                                <a href="/spellbook/{{spellbook.id}}/delete/{{spell.id}}" class="btn btn-dark">Remove from Spellbook</a>
+                                            </div>
+                                        </div>
+                                        <p>
+                                            Casting Time: {{spell.casting_time}} | Range: {{spell.range}} |
+                                            Duration: {{spell.duration}}<br>
+                                            Concentration: {{spell.concentration}} | Ritual: {{spell.ritual}} | Components: {{spell.components}}<br>
+                                            Material: {{spell.material}}
+                                        </p>
+
+                                        <hr>
+                                        <p>{{spell.desc}}</p>
+                                        <p>{{spell.higher_level}}</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    {% if spells8 %}
+                    <h3 class="ms-3 mt-4 text-center">Eighth Level Spells</h3>
+                    <div class="accordion" id="eighth_level">
+                        {% for spell in spells8 %}
+                        <div class="accordion-item">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapse{{spell.id}}">
+                                {{spell.name}}
+                            </button>
+                            <div id="collapse{{spell.id}}" class="accordion-collapse collapse" data-bs-parent="#eighth_level">
+                                <div class="accordion-body">
+                                    <div>
+                                        <div class="d-flex justify-content-between">
+                                            <p><strong>{{spell.school}} - Eighth Level</strong></p>
+                                            <div>
+                                                <a href="/spellbook/{{spellbook.id}}/delete/{{spell.id}}" class="btn btn-dark">Remove from Spellbook</a>
+                                            </div>
+                                        </div>
+                                        <p>
+                                            Casting Time: {{spell.casting_time}} | Range: {{spell.range}} |
+                                            Duration: {{spell.duration}}<br>
+                                            Concentration: {{spell.concentration}} | Ritual: {{spell.ritual}} | Components: {{spell.components}}<br>
+                                            Material: {{spell.material}}
+                                        </p>
+
+                                        <hr>
+                                        <p>{{spell.desc}}</p>
+                                        <p>{{spell.higher_level}}</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    {% if spells9 %}
+                    <h3 class="ms-3 mt-4 text-center">Ninth Level Spells</h3>
+                    <div class="accordion" id="ninth_level">
+                        {% for spell in spells9 %}
+                        <div class="accordion-item">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapse{{spell.id}}">
+                                {{spell.name}}
+                            </button>
+                            <div id="collapse{{spell.id}}" class="accordion-collapse collapse" data-bs-parent="#ninth_level">
+                                <div class="accordion-body">
+                                    <div>
+                                        <div class="d-flex justify-content-between">
+                                            <p><strong>{{spell.school}} - Ninth Level</strong></p>
+                                            <div>
+                                                <a href="/spellbook/{{spellbook.id}}/delete/{{spell.id}}" class="btn btn-dark">Remove from Spellbook</a>
+                                            </div>
+                                        </div>
+                                        <p>
+                                            Casting Time: {{spell.casting_time}} | Range: {{spell.range}} |
+                                            Duration: {{spell.duration}}<br>
+                                            Concentration: {{spell.concentration}} | Ritual: {{spell.ritual}} | Components: {{spell.components}}<br>
+                                            Material: {{spell.material}}
+                                        </p>
+
+                                        <hr>
+                                        <p>{{spell.desc}}</p>
+                                        <p>{{spell.higher_level}}</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+
+
+
+
+
+
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+        <div>
+
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+            crossorigin="anonymous"></script>
+</body>
+
+</html>

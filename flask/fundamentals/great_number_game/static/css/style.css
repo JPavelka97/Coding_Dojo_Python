@@ -1,0 +1,12 @@
+.container{
+    width:350px;
+    height:350px;
+}
+.box{
+    width: 350px;
+    height: 350px;
+    padding-top: 165px;
+    padding-bottom:175px;
+    margin: 0 auto;
+    margin-bottom: 15px;
+}

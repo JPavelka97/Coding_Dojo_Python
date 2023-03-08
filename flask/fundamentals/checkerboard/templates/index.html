@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkerboard</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css')}}">
+    <style>
+        .boxA {
+            background-color: red;
+            background-color: var(--boxcolor1);
+        }
+        .boxB {
+            background-color: black;
+            background-color: var(--boxcolor2);
+        }
+
+    </style>
+</head>
+<body>
+    <h1>*** Checkerboard ***</h1>
+        {% for row in range(0,rows):%}
+            <div class="line">
+                {% for col in range(0,cols):%}
+                {% if (row+col) % 2 == 0 %}
+                    <div class="boxA" style="--boxcolor1: {{color1}}"></div>
+                {% else %}
+                    <div class="boxB" style="--boxcolor2: {{color2}}"></div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+</body>
+</html>

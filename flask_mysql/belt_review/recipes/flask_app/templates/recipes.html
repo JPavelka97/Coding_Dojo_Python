@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Share</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+<body>
+    <h1 class="pt-5 ps-5">Welcome, {{user_name.first_name}}</h1>
+    <hr>
+    <div class="container">
+        <div class="text-end">
+            <a href="/recipes/new">+ Create</a>
+            <a href="/logout" class="ps-3">Log Out</a>
+        </div>
+        <table class="table bg-dark text-danger">
+            <thead>
+                <tr>
+                    <th>NAME</th>
+                    <th>UNDER 30</th>
+                    <th>POSTED BY</th>
+                    <th>ACTIONS</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for recipe in recipes %}
+                <tr>
+                    <td>{{recipe.name}}</td>
+                    <td>{{recipe.under_30_minutes}}</td>
+                    <td>{{recipe.creator.first_name}}</td>
+                    <td>
+                        <span>
+                        <a href="/recipes/{{recipe.id}}">view recipe</a>
+                        </span>
+                        {% if recipe.creator.id == session['user_id'] %}
+                        |
+                        <span>
+                        <a href="/recipes/edit/{{recipe.id}}">edit</a>
+                        </span>
+                        |
+                        <span>
+                        <a href="/recipes/delete/{{recipe.id}}">delete</a>
+                        </span>
+                        {% endif %}
+
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

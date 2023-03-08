@@ -1,0 +1,20 @@
+h1 {
+    text-align: center;
+}
+
+.line{
+    display: flex;
+    justify-content: center;
+}
+
+.boxA{
+    height: 70px;
+    width: 70px;
+    background-color: red;
+}
+
+.boxB{
+    height: 70px;
+    width: 70px;
+    background-color: black;
+}

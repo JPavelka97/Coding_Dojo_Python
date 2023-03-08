@@ -1,0 +1,28 @@
+INSERT INTO dojos (name)
+VALUES ('Sasuke Dojo'),('Naruto Dojo'),('Kakashi Dojo');
+
+DELETE FROM dojos;
+
+INSERT INTO dojos (name)
+VALUES ('Sasuke Dojo'),('Naruto Dojo'),('Kakashi Dojo');
+
+INSERT INTO ninjas (first_name, last_name, age, dojo_id)
+VALUES ('Sasuke', 'Uchiha', 17, 4),
+('Jugo', 'Uchiha', 23, 4),
+('Itachi', 'Uchiha', 27, 4);
+
+INSERT INTO ninjas (first_name, last_name, age, dojo_id)
+VALUES ('Naruto', 'Uzumaki', 17, 5),
+('Hinata', 'Hyuuga', 15, 5),
+('Konohamaru', 'Sarutobi', 12, 5);
+
+INSERT INTO ninjas (first_name, last_name, age, dojo_id)
+VALUES ('Kakashi', 'Hatake', 17, 6),
+('Yamato', NULL, 29, 6),
+('Obito', 'Uchiha', 17, 6);
+
+SELECT * FROM ninjas WHERE dojo_id=4;
+
+SELECT * FROM ninjas WHERE dojo_id=6;
+
+SELECT dojo_id FROM ninjas WHERE id=12;

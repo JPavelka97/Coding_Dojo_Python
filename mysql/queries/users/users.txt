@@ -1,0 +1,14 @@
+INSERT INTO mydb.users (first_name, last_name, email)
+VALUES('Jacob', 'Pavelka', 'jacob@jacob.com'),('Rachel','Ribbits','froggy@frog.com'),('Sally','Simmers','sally@sally.com');
+
+SELECT * FROM users WHERE email LIKE "jacob@jacob.com";
+
+SELECT * FROM users WHERE id=3;
+
+UPDATE users
+SET first_name="Pancakes"
+WHERE id=3;
+
+DELETE FROM users WHERE id=2
+
+SELECT * FROM users ORDER BY first_name DESC;
